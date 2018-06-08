@@ -31,14 +31,6 @@ public enum JobRunnerType {
         return names;
     }
 
-    public int value() {
-        return this.type;
-    }
-
-    public String getName() {
-        return this.name;
-    }
-
     public
 
     int type;

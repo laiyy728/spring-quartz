@@ -14,7 +14,13 @@ import org.springframework.stereotype.Service;
  * @description
  */
 @Service
-public interface JobService {
+public interface JobService extends BaseService<Job, Integer>{
+
+    /**
+     * 添加任务
+     * @param job 任务信息
+     */
+    void addJob(Job job);
 
     /**
      * 根据 任务 key 获取任务信息
@@ -26,33 +32,33 @@ public interface JobService {
     /**
      * 根据任务组，获取任务组所有任务，带分页
      * @param groupId 任务组 id
-     * @param pageable 分页参数
+     * @param page 当前页码
      * @return 对应任务组的任务列表
      */
-    Page<Job> findJobByGroupId(int groupId, Pageable pageable);
+    Page<Job> findJobByGroupId(int groupId, int page);
 
     /**
      * 根据运行状态，获取对应运行状态的所有任务，带分页
      * @param runnerType 运行状态：0：已删除，1：已结束，2：已取消，3：已暂停，4：执行中
-     * @param pageable 分页信息
+     * @param page 当前页码
      * @return 对应运行状态的任务列表
      */
-    Page<Job> findJobByRunnerType(int runnerType, Pageable pageable);
+    Page<Job> findJobByRunnerType(int runnerType, int page);
 
     /**
      * 根据任务组、运行状态获取任务信息，带分页
      * @param groupId 任务组
      * @param runnerType 运行状态：0：已删除，1：已结束，2：已取消，3：已暂停，4：执行中
-     * @param pageable 分页信息
+     * @param page 当前页码
      * @return 对应任务列表
      */
-    Page<Job> findJobByGroupIdAndRunnerType(int groupId, int runnerType, Pageable pageable);
+    Page<Job> findJobByGroupIdAndRunnerType(int groupId, int runnerType, int page);
 
     /**
      * 修改任务类型
      * @param runnerType 任务类型
      * @param jobKey 任务 key
      */
-    void updateJobRunnerType(@Param("runnerType") int runnerType, @Param("jobKey") String jobKey);
+    void updateJobRunnerType(int runnerType, String jobKey);
 
 }
