@@ -1,0 +1,13 @@
+html, body, .layui-layout, .content-wrapper {
+    height: 100%;
+}
+
+.content-wrapper {
+    padding-left: 200px;
+}
+
+.content-wrapper iframe{
+    border: 0;
+    width: 100%;
+    height: 100%;
+}

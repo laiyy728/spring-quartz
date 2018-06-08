@@ -18,9 +18,10 @@ public class ViewController {
         return "index";
     }
 
-    @GetMapping("/job/list")
+    @GetMapping("/pro/job/list")
     public String jobList(){
-        return "/job/list.btl";
+        return "job/list";
     }
 
 }
+
