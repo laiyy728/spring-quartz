@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+@ include('../common/header.html'){}
+<body>
+
+<div class="form-body">
+    <form class="layui-form" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">任务名称：</label>
+            <div class="layui-input-block">
+                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入任务名称"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">任务组：</label>
+            <div class="layui-input-block">
+                <select name="groupId">
+                    <option value="">请选择任务组</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">运行类：</label>
+            <div class="layui-input-block">
+                <select name="groupId">
+                    <option value="">请选择任务运行类</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <div class="layui-inline">
+                <label class="layui-form-label">开始时间：</label>
+                <div class="layui-input-inline">
+                    <input type="text" name="startDateStr" id="startDate" lay-verify="time"
+                           placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off"
+                           class="layui-input">
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">运行类别：</label>
+            <div class="layui-input-block">
+                <select name="time">
+                    <option value="">请选择任务运行次数</option>
+                    <option value="-1">永远运行</option>
+                    <option value="0">运行一次</option>
+                    <option value="1">固定次数</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">运行次数：</label>
+            <div class="layui-input-block">
+                <input type="number" name="times" lay-verify="title" autocomplete="off" placeholder="请输入任务运行次数"
+                       class="layui-input">
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">运行周期：</label>
+            <div class="layui-input-block">
+                <select name="cron">
+                    <option value="">请选择任务运行周期</option>
+                </select>
+            </div>
+        </div>
+
+        <div style="text-align: center">
+            <a class="layui-btn" lay-submit lay-filter>保存</a>
+        </div>
+
+    </form>
+</div>
+<script src="/commons/js/job/add-job.js"></script>
+</body>
+</html>

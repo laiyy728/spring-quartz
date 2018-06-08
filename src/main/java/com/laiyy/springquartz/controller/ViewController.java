@@ -10,17 +10,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description 页面管理器
  */
 @Controller
-@RequestMapping(value = "")
+@RequestMapping(value = "/pro")
 public class ViewController {
 
-    @GetMapping(value = {"/", "index"})
-    public String index(){
-        return "index";
-    }
-
-    @GetMapping("/pro/job/list")
+    @GetMapping("/job/list")
     public String jobList(){
         return "job/list";
+    }
+
+    @GetMapping(value = "/job/add")
+    public String addJob(){
+        return "job/add-job";
     }
 
 }
