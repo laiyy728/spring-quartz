@@ -1,4 +1,4 @@
-package com.laiyy.springquartz.service;
+package com.laiyy.springquartz.base;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -11,7 +11,7 @@ import java.util.List;
  * @date 2018/6/8 11:19
  * @description 通用 Service
  */
-public interface BaseService<T, ID extends Serializable> {
+public interface BaseService<T, ID extends Serializable> extends Service {
 
     /**
      * 删除一个实体
@@ -28,11 +28,13 @@ public interface BaseService<T, ID extends Serializable> {
     /**
      * 根据 id 获取信息
      * @param id 需要获取信息的 id
+     * @return 获取到的实体
      */
     T get(ID id);
 
     /**
      * 获取全部信息
+     * @return 获取到的实体列表
      */
     List<T> findAll();
 
@@ -53,6 +55,7 @@ public interface BaseService<T, ID extends Serializable> {
     /**
      * 修改实体信息
      * @param t 修改的实体信息
+     * @return 修改后的实体信息
      */
     T update(T t);
 

@@ -6,7 +6,7 @@ import org.springframework.data.domain.PageRequest;
 /**
  * @author laiyy
  * @date 2018/6/8 11:43
- * @description
+ * @description 分页信息
  */
 public class PageUtil {
 

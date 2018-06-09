@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * @author laiyy
  * @date 2018/6/7 19:20
- * @description
+ * @description 任务运行状态
  */
 public enum JobRunnerType {
 
@@ -29,6 +29,24 @@ public enum JobRunnerType {
             names.add(value.name);
         }
         return names;
+    }
+
+    public static boolean hasRunnerType(int type){
+        for (JobRunnerType value : values()) {
+            if (value.type == type) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static String runnerName(int runnerType) {
+        for (JobRunnerType jobRunnerType : values()) {
+            if (jobRunnerType.type == runnerType) {
+                return jobRunnerType.name;
+            }
+        }
+        return "";
     }
 
     public
