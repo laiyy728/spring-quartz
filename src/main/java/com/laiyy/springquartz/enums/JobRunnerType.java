@@ -1,8 +1,10 @@
 package com.laiyy.springquartz.enums;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author laiyy
@@ -22,11 +24,10 @@ public enum JobRunnerType {
     // 运行中
     RUNNING(4, "运行中");
 
-    public List<String> names (){
-        List<String> names = Lists.newArrayList();
-        JobRunnerType[] values = JobRunnerType.values();
-        for (JobRunnerType value : values) {
-            names.add(value.name);
+    public static Map<Integer, String> names (){
+        Map<Integer, String> names = Maps.newLinkedHashMap();
+        for (JobRunnerType jobRunnerType : values()) {
+            names.put(jobRunnerType.type, jobRunnerType.name);
         }
         return names;
     }
@@ -49,7 +50,13 @@ public enum JobRunnerType {
         return "";
     }
 
-    public
+    public int type(){
+        return this.type;
+    }
+
+    public String value(){
+        return this.name;
+    }
 
     int type;
 

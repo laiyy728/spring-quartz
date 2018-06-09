@@ -28,13 +28,13 @@ public class JobServiceImpl extends BaseServiceImpl<Job, Integer, JobRepository>
             throw new ExistsException("该任务已经存在");
         }
         job.setCreateDate(new Date());
-        job.setRunnerType(JobRunnerType.PAUSE.type);
+        job.setRunnerType(JobRunnerType.PAUSE.type());
         repository.save(job);
     }
 
     @Override
     public Job findJobByJobKey(String jobKey) {
-        logger.debug(">>>>>>>>>>>>>>>>>>>> 正在获取任务，任务 key：{} <<<<<<<<<<<<<<<<<<<<<", jobKey);
+        logger.info(">>>>>>>>>>>>>>>>>>>> 正在获取任务，任务 key：{} <<<<<<<<<<<<<<<<<<<<<", jobKey);
         return repository.findJobByJobKey(jobKey);
     }
 

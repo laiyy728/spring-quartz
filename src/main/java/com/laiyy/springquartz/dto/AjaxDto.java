@@ -1,20 +1,20 @@
 package com.laiyy.springquartz.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+//import io.swagger.annotations.ApiModel;
+//import io.swagger.annotations.ApiModelProperty;
 
 /**
  *
  * @author wh
  * @date 2018/1/14
  */
-@ApiModel(value = "ajaxDto", description = "接口统一返回值")
+//@ApiModel(value = "ajaxDto", description = "接口统一返回值")
 public class AjaxDto {
-    @ApiModelProperty(name = "result", value = "操作编码， 200 成功")
+//    @ApiModelProperty(name = "result", value = "操作编码， 200 成功")
     private int result;
-    @ApiModelProperty(name = "msg", value = "操作反馈描述")
+//    @ApiModelProperty(name = "msg", value = "操作反馈描述")
     private String msg;
-    @ApiModelProperty(name = "obj", value = "操作反馈对象")
+//    @ApiModelProperty(name = "obj", value = "操作反馈对象")
     private Object obj;
 
     @Override
