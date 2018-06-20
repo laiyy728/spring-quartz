@@ -34,7 +34,7 @@ public class JobServiceImpl extends BaseServiceImpl<Job, Integer, JobRepository>
 
     @Override
     public Job findJobByJobKey(String jobKey) {
-        logger.info(">>>>>>>>>>>>>>>>>>>> 正在获取任务，任务 key：{} <<<<<<<<<<<<<<<<<<<<<", jobKey);
+        logger.debug(">>>>>>>>>>>>>>>>>>>> 正在获取任务，任务 key：{} <<<<<<<<<<<<<<<<<<<<<", jobKey);
         return repository.findJobByJobKey(jobKey);
     }
 

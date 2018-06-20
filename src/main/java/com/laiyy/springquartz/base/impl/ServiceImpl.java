@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
  */
 public class ServiceImpl {
 
-    protected final Logger logger = LoggerFactory.getLogger(getClass());
+    protected final Logger logger = LoggerFactory.getLogger("debug");
+
 
 }
