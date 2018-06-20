@@ -10,6 +10,7 @@ import com.laiyy.springquartz.util.PageUtil;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.Date;
 
 /**
@@ -57,6 +58,7 @@ public class JobServiceImpl extends BaseServiceImpl<Job, Integer, JobRepository>
     }
 
     @Override
+    @Transactional(rollbackOn = Exception.class, value = Transactional.TxType.REQUIRED)
     public void updateJobRunnerType(int runnerType, String jobKey) {
         logger.debug(">>>>>>>>>>>>>>>>>>正在修改任务运行状态，任务 key：{}，运行状态：{} <<<<<<<<<<<<<<<<<<<", jobKey, JobRunnerType.runnerName(runnerType));
         repository.updateJobRunnerType(runnerType, jobKey);

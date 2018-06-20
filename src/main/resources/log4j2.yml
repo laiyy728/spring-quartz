@@ -57,15 +57,16 @@ Configuration:
 
 
   Loggers:
+    Logger: # 为 com.laiyy.springquartz 包配置特殊的Log级别，方便调试
+      - name: com.laiyy
+        level: debug
+        additivity: false
+        includeLocation: true
+        AppenderRef:
+          - ref: CONSOLE
     Root:
-      level: debug
+      level: info
       AppenderRef:
         - ref: CONSOLE
         - ref: ROLLING_DEBUG
         - ref: ROLLING_ERROR
-    Logger: # 为 com.laiyy.springquartz 包配置特殊的Log级别，方便调试
-      - name: error
-        additivity: true
-        AppenderRef:
-          - ref: ROLLING_DEBUG
-          - ref: ROLLING_ERROR
