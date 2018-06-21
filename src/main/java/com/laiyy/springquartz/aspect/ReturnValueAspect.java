@@ -38,6 +38,7 @@ public class ReturnValueAspect {
     public void returnValue(Object value) {
         String json;
         if (value instanceof Page) {
+            // 如果返回是 Page 类型
             Page page = (Page) value;
             List data = page.getContent();
             long count = page.getTotalElements();
@@ -49,6 +50,7 @@ public class ReturnValueAspect {
         if (requestAttributes != null) {
             HttpServletResponse response = ((ServletRequestAttributes) requestAttributes).getResponse();
             if (response != null) {
+                // 封装后输出
                 response.setCharacterEncoding(Charset.defaultCharset().name());
                 response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                 ServletOutputStream outputStream = null;

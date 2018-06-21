@@ -7,4 +7,6 @@ package com.laiyy.springquartz.base;
  */
 public interface Service {
 
+
+
 }

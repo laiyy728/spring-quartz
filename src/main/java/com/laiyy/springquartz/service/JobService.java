@@ -10,8 +10,7 @@ import org.springframework.stereotype.Service;
  * @date 2018/6/8 10:57
  * @description
  */
-@Service
-public interface JobService extends BaseService<Job, Integer> {
+public interface JobService extends BaseService<Job, Integer>{
 
     /**
      * 添加任务

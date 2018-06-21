@@ -11,7 +11,7 @@ import java.util.List;
 /**
  * @author laiyy
  * @date 2018/6/8 11:27
- * @description 通用 Service 实现
+ * @description 通用 Service 实现，接收一个实体类型、实体主键类型、实体的 jpaRepository，并自动注入 repository
  */
 public class BaseServiceImpl<T, ID extends Number, R extends JpaRepository<T, ID>> extends ServiceImpl implements BaseService<T, ID> {
 

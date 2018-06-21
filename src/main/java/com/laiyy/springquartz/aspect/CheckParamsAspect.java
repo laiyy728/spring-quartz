@@ -9,10 +9,15 @@ import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.annotation.Pointcut;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
+import javax.validation.constraints.Null;
+import java.lang.reflect.Array;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author laiyy
@@ -24,7 +29,7 @@ import java.util.List;
 public class CheckParamsAspect {
 
     @Pointcut("@annotation(com.laiyy.springquartz.annotations.CheckParams)")
-    public void check(){
+    public void check() {
 
     }
 
@@ -51,6 +56,16 @@ public class CheckParamsAspect {
                         String paramValue = (String) value;
                         if (StringUtils.isBlank(paramValue)) {
                             throw new NullValueException(paramName + " 不能为空");
+                        }
+                    } else if (value instanceof Collection) {
+                        Collection collection = (Collection) value;
+                        if (CollectionUtils.isEmpty(collection)) {
+                            throw new NullValueException(paramName + " 不能为空数组");
+                        }
+                    } else if (value instanceof Map) {
+                        Map map = (Map) value;
+                        if (CollectionUtils.isEmpty(map)) {
+                            throw new NullValueException(paramName + " 不能为空 map");
                         }
                     }
                 }

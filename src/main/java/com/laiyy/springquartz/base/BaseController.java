@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 /**
  * @author laiyy
  * @date 2018/6/9 14:05
- * @description
+ * @description 全局基础 Controller，接收一个 Service，并自动注入
  */
 public class BaseController<R extends Service>  {
 

@@ -23,6 +23,10 @@ public class ExceptionAdvice {
 
     private static final Logger logger = LoggerFactory.getLogger(ExceptionAdvice.class);
 
+    /**
+     * 匹配：@NotNull、@NotBlank、@NotEmpty 注解的异常处理
+     * @return 异常处理结果
+     */
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseBody
     public AjaxDto nullValueException(ConstraintViolationException exception){
@@ -36,6 +40,10 @@ public class ExceptionAdvice {
         return ResultUtils.fail(message);
     }
 
+    /**
+     * 匹配 @CheckParams 的异常处理
+     * @return 异常处理结果
+     */
     @ExceptionHandler(NullValueException.class)
     @ResponseBody
     public AjaxDto nullValueException(NullValueException e){

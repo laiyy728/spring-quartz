@@ -10,17 +10,17 @@ public class GlobalConstant {
     /**
      * 删除状态
      */
-    public static final int DELETE = -1;
+    public static final int DELETE = 0;
 
     /**
      * 禁用状态
      */
-    public static final int DISABLE = 0;
+    public static final int DISABLE = 1;
 
     /**
      * 普通状态
      */
-    public static final int NORMAL = 1;
+    public static final int NORMAL = 2;
 
     /**
      * 成功

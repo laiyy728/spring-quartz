@@ -9,9 +9,9 @@ import java.util.List;
 /**
  * @author laiyy
  * @date 2018/6/8 11:19
- * @description 通用 Service
+ * @description 通用 Service，接收一个实体、以及实体的id类型
  */
-public interface BaseService<T, ID extends Serializable> extends Service {
+public interface BaseService<T, ID extends Serializable> extends Service{
 
     /**
      * 删除一个实体

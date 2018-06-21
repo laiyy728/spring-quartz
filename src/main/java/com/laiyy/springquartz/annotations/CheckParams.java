@@ -16,8 +16,9 @@ import java.lang.annotation.Target;
 @Documented
 public @interface CheckParams {
 
+    /**
+     * 需要检查是否为空的参数名
+     */
     String[] fields() default {};
-
-    String message() default "";
 
 }
