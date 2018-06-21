@@ -3,35 +3,73 @@ package com.laiyy.springquartz.dto;
 //import io.swagger.annotations.ApiModel;
 //import io.swagger.annotations.ApiModelProperty;
 
+import java.util.Objects;
+
 /**
  *
  * @author wh
  * @date 2018/1/14
  */
-//@ApiModel(value = "ajaxDto", description = "接口统一返回值")
 public class AjaxDto {
-//    @ApiModelProperty(name = "result", value = "操作编码， 200 成功")
-    private int result;
-//    @ApiModelProperty(name = "msg", value = "操作反馈描述")
+
+    private int code;
+
+    private long count;
+
+    private Object data;
+
     private String msg;
-//    @ApiModelProperty(name = "obj", value = "操作反馈对象")
-    private Object obj;
 
     @Override
     public String toString() {
         return "AjaxDto{" +
-                "result=" + result +
+                "code=" + code +
+                ", count=" + count +
+                ", data=" + data +
                 ", msg='" + msg + '\'' +
-                ", obj=" + obj +
                 '}';
     }
 
-    public int getResult() {
-        return result;
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AjaxDto ajaxDto = (AjaxDto) o;
+        return code == ajaxDto.code &&
+                count == ajaxDto.count &&
+                Objects.equals(data, ajaxDto.data) &&
+                Objects.equals(msg, ajaxDto.msg);
     }
 
-    public void setResult(int result) {
-        this.result = result;
+    @Override
+    public int hashCode() {
+
+        return Objects.hash(code, count, data, msg);
+    }
+
+    public int getCode() {
+
+        return code;
+    }
+
+    public void setCode(int code) {
+        this.code = code;
+    }
+
+    public long getCount() {
+        return count;
+    }
+
+    public void setCount(long count) {
+        this.count = count;
+    }
+
+    public Object getData() {
+        return data;
+    }
+
+    public void setData(Object data) {
+        this.data = data;
     }
 
     public String getMsg() {
@@ -39,32 +77,6 @@ public class AjaxDto {
     }
 
     public void setMsg(String msg) {
-        this.msg = msg;
-    }
-
-    public Object getObj() {
-        return obj;
-    }
-
-    public void setObj(Object obj) {
-        this.obj = obj;
-    }
-
-    public AjaxDto() {
-    }
-
-    public AjaxDto(int result, String msg, Object obj) {
-        this.result = result;
-        this.msg = msg;
-        this.obj = obj;
-    }
-
-    public AjaxDto(int result) {
-        this.result = result;
-    }
-
-    public AjaxDto(int result, String msg) {
-        this.result = result;
         this.msg = msg;
     }
 }

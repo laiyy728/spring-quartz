@@ -1,6 +1,5 @@
-package com.laiyy.springquartz.controller;
+package com.laiyy.springquartz.base;
 
-import com.laiyy.springquartz.base.BaseService;
 import com.laiyy.springquartz.base.Service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

@@ -30,9 +30,10 @@ public interface JobService extends BaseService<Job, Integer> {
      * 根据任务组，获取任务组所有任务，带分页
      * @param groupId 任务组 id
      * @param page 当前页码
+     * @param limit 每页显示多少条信息
      * @return 对应任务组的任务列表
      */
-    Page<Job> findJobByGroupId(int groupId, int page);
+    Page<Job> findJobByGroupId(int groupId, int page, int limit);
 
     /**
      * 根据运行状态，获取对应运行状态的所有任务，带分页

@@ -2,6 +2,7 @@ package com.laiyy.springquartz.service.impl;
 
 import com.laiyy.springquartz.base.impl.BaseServiceImpl;
 import com.laiyy.springquartz.enums.JobRunnerType;
+import com.laiyy.springquartz.enums.SortEnum;
 import com.laiyy.springquartz.exceptions.ExistsException;
 import com.laiyy.springquartz.model.Job;
 import com.laiyy.springquartz.repository.JobRepository;
@@ -40,21 +41,21 @@ public class JobServiceImpl extends BaseServiceImpl<Job, Integer, JobRepository>
     }
 
     @Override
-    public Page<Job> findJobByGroupId(int groupId, int page) {
+    public Page<Job> findJobByGroupId(int groupId, int page, int limit) {
         logger.debug(">>>>>>>>>>>>>>>正在根据分组 id 获取任务列表，分组 id：{}， 当前页：{} <<<<<<<<<<<<<<<<<", groupId, page);
-        return repository.findJobByGroupId(groupId, PageUtil.of(page));
+        return repository.findJobByGroupId(groupId, PageUtil.of(page, limit, SortEnum.DESC, "startDate", "runnerType"));
     }
 
     @Override
     public Page<Job> findJobByRunnerType(int runnerType, int page) {
         logger.debug(">>>>>>>>>>>>>>>正在根据运行状态获取任务列表，运行状态：{}， 当前页：{} <<<<<<<<<<<<<<<<<", JobRunnerType.runnerName(runnerType), page);
-        return repository.findJobByRunnerType(runnerType, PageUtil.of(page));
+        return repository.findJobByRunnerType(runnerType, PageUtil.of(page, SortEnum.DESC, "startDate, runnerType"));
     }
 
     @Override
     public Page<Job> findJobByGroupIdAndRunnerType(int groupId, int runnerType, int page) {
         logger.debug(">>>>>>>>>>>>>>>正在根据分组id、运行状态获取任务列表，分组id：{}，运行状态：{}， 当前页：{} <<<<<<<<<<<<<<<<<", groupId, JobRunnerType.runnerName(runnerType), page);
-        return repository.findJobByGroupIdAndRunnerType(groupId, runnerType, PageUtil.of(page));
+        return repository.findJobByGroupIdAndRunnerType(groupId, runnerType, PageUtil.of(page, SortEnum.DESC, "startDate", "runnerType"));
     }
 
     @Override

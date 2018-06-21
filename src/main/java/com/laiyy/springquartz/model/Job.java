@@ -1,7 +1,5 @@
 package com.laiyy.springquartz.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +7,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
 import java.util.Date;
 import java.util.Objects;
 
@@ -29,6 +28,7 @@ public class Job {
      * 任务 key
      */
     @Column(name = "job_key")
+    @NotBlank(message = "任务 key 不能为空")
     private String jobKey = "";
 
     /**
@@ -52,14 +52,12 @@ public class Job {
     /**
      * 任务创建时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "create_date")
     private Date createDate;
 
     /**
      * 任务开始时间
      */
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
     @Column(name = "start_date")
     private Date startDate;
 

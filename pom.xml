@@ -65,6 +65,12 @@
             <version>23.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.45</version>
+        </dependency>
+
         <!-- quartz 定时 -->
         <dependency>
             <groupId>org.quartz-scheduler</groupId>
@@ -110,6 +116,11 @@
         <dependency>  <!-- 加上这个才能辨认到log4j2.yml文件 -->
             <groupId>com.fasterxml.jackson.dataformat</groupId>
             <artifactId>jackson-dataformat-yaml</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
         </dependency>
 
         <!-- test -->
