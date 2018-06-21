@@ -2,9 +2,11 @@ package com.laiyy.springquartz.aspect;
 
 import com.alibaba.fastjson.JSON;
 import com.laiyy.springquartz.util.ResultUtils;
+import org.apache.commons.lang3.CharSet;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Pointcut;
+import org.hibernate.type.CharacterType;
 import org.springframework.data.domain.Page;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
@@ -15,12 +17,13 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.List;
 
 /**
  * @author laiyy
  * @date 2018/6/21 13:48
- * @description
+ * @description 返回值处理切面
  */
 @Component
 @Aspect
@@ -46,7 +49,7 @@ public class ReturnValueAspect {
         if (requestAttributes != null) {
             HttpServletResponse response = ((ServletRequestAttributes) requestAttributes).getResponse();
             if (response != null) {
-                response.setCharacterEncoding("UTF-8");
+                response.setCharacterEncoding(Charset.defaultCharset().name());
                 response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
                 ServletOutputStream outputStream = null;
                 try {

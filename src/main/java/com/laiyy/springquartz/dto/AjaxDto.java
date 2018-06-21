@@ -6,6 +6,7 @@ import java.util.Objects;
  *
  * @author wh
  * @date 2018/1/14
+ * @descritpion 全局统一返回值数据结构
  */
 public class AjaxDto {
 

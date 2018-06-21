@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 /**
  * @author laiyy
  * @date 2018/6/21 11:01
- * @description
+ * @description 自定义注解：检查是 fields 中是否有空值
  */
 @Target(ElementType.METHOD)
 @Retention(RetentionPolicy.RUNTIME)

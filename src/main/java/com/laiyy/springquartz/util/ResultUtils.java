@@ -8,7 +8,7 @@ import java.util.ArrayList;
 /**
  * @author laiyy
  * @date 2018/6/21 10:52
- * @description
+ * @description 通用返回值方法
  */
 public class ResultUtils {
 

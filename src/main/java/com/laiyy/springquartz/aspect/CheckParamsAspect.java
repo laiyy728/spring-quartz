@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * @author laiyy
  * @date 2018/6/21 11:04
- * @description
+ * @description 检查是否有空值的切面，用 @Before 在方法执行前检查
  */
 @Component
 @Aspect

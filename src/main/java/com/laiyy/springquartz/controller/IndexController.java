@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 /**
  * @author laiyy
  * @date 2018/6/8 22:08
- * @description
+ * @description 主页管理
  */
 @Controller
 public class IndexController {
