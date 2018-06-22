@@ -18,6 +18,9 @@
             <div class="layui-input-block">
                 <select name="groupId">
                     <option value="">请选择任务组</option>
+                    @ for (group in groups) {
+                    <option value="${group.id}">${group.name}</option>
+                    @ }
                 </select>
             </div>
         </div>
@@ -25,7 +28,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">运行类：</label>
             <div class="layui-input-block">
-                <select name="groupId">
+                <select name="runnerClassName">
                     <option value="">请选择任务运行类</option>
                 </select>
             </div>
@@ -43,20 +46,16 @@
         </div>
 
         <div class="layui-form-item">
-            <label class="layui-form-label">运行类别：</label>
+            <label class="layui-form-label">单选框</label>
             <div class="layui-input-block">
-                <select name="time">
-                    <option value="">请选择任务运行次数</option>
-                    <option value="-1">永远运行</option>
-                    <option value="0">运行一次</option>
-                    <option value="1">固定次数</option>
-                </select>
+                <input type="radio" name="time" value="-1" title="永远运行">
+                <input type="radio" name="time" value="0" title="运行一次">
+                <input type="radio" name="time" value="2" title="固定次数">
             </div>
         </div>
 
-
-        <div class="layui-form-item">
-            <label class="layui-form-label">运行次数：</label>
+        <div class="layui-form-item" style="display: none" id="time">
+            <label class="layui-form-label">固定运行次数：</label>
             <div class="layui-input-block">
                 <input type="number" name="times" lay-verify="title" autocomplete="off" placeholder="请输入任务运行次数"
                        class="layui-input">
@@ -66,14 +65,22 @@
         <div class="layui-form-item">
             <label class="layui-form-label">运行周期：</label>
             <div class="layui-input-block">
-                <select name="cron">
-                    <option value="">请选择任务运行周期</option>
-                </select>
+                <input type="number" name="year" autocomplete="off" lay-verify="year"
+                       class="layui-input time-input"> &nbsp;<span class="time-span">年</span>
+                <input type="number" name="month" autocomplete="off" lay-verify="month"
+                       class="layui-input time-input"> &nbsp;<span class="time-span">月</span>
+                <input type="number" name="day" autocomplete="off" lay-verify="day"
+                       class="layui-input time-input"> &nbsp;<span class="time-span">日</span>
+                <input type="number" name="hour" autocomplete="off" lay-verify="hour"
+                       class="layui-input time-input"> &nbsp;<span class="time-span">时</span>
+                <input type="number" name="minute" autocomplete="off" lay-verify="minute"
+                       class="layui-input time-input"> &nbsp;<span class="time-span">分</span>
+                <input type="number" name="second" autocomplete="off" lay-verify="second"
+                       class="layui-input time-input"> &nbsp;<span class="time-span">秒</span>
             </div>
         </div>
-
         <div style="text-align: center">
-            <a class="layui-btn" lay-submit lay-filter>保存</a>
+            <a class="layui-btn" lay-submit="" lay-filter="addJobSubmit">保存</a>
         </div>
 
     </form>

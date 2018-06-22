@@ -1,5 +1,6 @@
 package com.laiyy.springquartz.controller.view;
 
+import com.laiyy.springquartz.constants.GlobalConstant;
 import com.laiyy.springquartz.model.Group;
 import com.laiyy.springquartz.model.Job;
 import com.laiyy.springquartz.service.GroupService;
@@ -10,6 +11,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import java.util.List;
 
 /**
  * @author laiyy
@@ -53,7 +56,10 @@ public class ViewController {
     }
 
     @GetMapping(value = "/job/add")
-    public String addJob(){
+    public String addJob(Model model){
+        // 任务组
+        List<Group> groups = groupService.findAllByStatusOrderByCreateDateDesc(GlobalConstant.NORMAL);
+        model.addAttribute("groups", groups);
         return "job/add-job";
     }
 
@@ -61,6 +67,9 @@ public class ViewController {
     public String jobEdit(@PathVariable int id, Model model){
         Job job = jobService.get(id);
         model.addAttribute(job);
+
+        List<Group> groups = groupService.findAllByStatusOrderByCreateDateDesc(GlobalConstant.NORMAL);
+        model.addAttribute("groups", groups);
         return "job/edit";
     }
 

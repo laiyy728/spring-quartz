@@ -6,17 +6,28 @@ html, body, .layui-layout, .content-wrapper {
     padding-left: 200px;
 }
 
-.content-wrapper iframe{
+.content-wrapper iframe {
     border: 0;
     width: 100%;
     height: 100%;
 }
 
 .form-body {
-    width: 50%;
+    width: 60%;
     min-width: 600px;
     height: auto;
     min-height: 800px;
     vertical-align: center;
     margin: 0 auto;
+}
+
+.time-span {
+    float: left;
+    margin: 5px 5px 0
+}
+
+.time-input {
+    width: 60px;
+    height: 30px;
+    float: left
 }

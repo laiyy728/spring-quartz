@@ -1,4 +1,3 @@
-
 layui.use(['jquery'], function () {
     // 导航栏 iframe 跳转
     var $ = layui.jquery;
@@ -26,3 +25,4 @@ function timeFormat(date) {
 function now() {
     return dayjs().format('YYYY-MM-DD HH:mm:ss');
 }
+

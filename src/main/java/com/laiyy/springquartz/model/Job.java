@@ -85,6 +85,24 @@ public class Job {
     @Column(name = "runner_type", columnDefinition = "INT DEFAULT 0")
     private int runnerType;
 
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int year;
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int month;
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int day;
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int hour;
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int minute;
+
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int second;
+
     @Override
     public String toString() {
         return "Job{" +
@@ -98,22 +116,30 @@ public class Job {
                 ", times=" + times +
                 ", cron='" + cron + '\'' +
                 ", runnerType=" + runnerType +
+                ", year=" + year +
+                ", month=" + month +
+                ", day=" + day +
+                ", hour=" + hour +
+                ", minute=" + minute +
+                ", second=" + second +
                 '}';
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         Job job = (Job) o;
         return id == job.id &&
                 groupId == job.groupId &&
                 times == job.times &&
                 runnerType == job.runnerType &&
+                year == job.year &&
+                month == job.month &&
+                day == job.day &&
+                hour == job.hour &&
+                minute == job.minute &&
+                second == job.second &&
                 Objects.equals(jobKey, job.jobKey) &&
                 Objects.equals(runnerClassName, job.runnerClassName) &&
                 Objects.equals(groupName, job.groupName) &&
@@ -125,7 +151,55 @@ public class Job {
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, jobKey, runnerClassName, groupId, groupName, createDate, startDate, times, cron, runnerType);
+        return Objects.hash(id, jobKey, runnerClassName, groupId, groupName, createDate, startDate, times, cron, runnerType, year, month, day, hour, minute, second);
+    }
+
+    public int getYear() {
+        return year;
+    }
+
+    public void setYear(int year) {
+        this.year = year;
+    }
+
+    public int getMonth() {
+        return month;
+    }
+
+    public void setMonth(int month) {
+        this.month = month;
+    }
+
+    public int getDay() {
+        return day;
+    }
+
+    public void setDay(int day) {
+        this.day = day;
+    }
+
+    public int getHour() {
+        return hour;
+    }
+
+    public void setHour(int hour) {
+        this.hour = hour;
+    }
+
+    public int getMinute() {
+        return minute;
+    }
+
+    public void setMinute(int minute) {
+        this.minute = minute;
+    }
+
+    public int getSecond() {
+        return second;
+    }
+
+    public void setSecond(int second) {
+        this.second = second;
     }
 
     public int getId() {
