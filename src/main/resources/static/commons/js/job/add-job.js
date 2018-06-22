@@ -1,5 +1,5 @@
 layui.use(['layer', 'form','laydate'], function () {
-    const layer = layui.layer,
+    var layer = layui.layer,
         laydate = layui.laydate,
         form = layui.form;
 
@@ -10,6 +10,7 @@ layui.use(['layer', 'form','laydate'], function () {
         value : now()
     })
 
+    // 任务组渲染
 
 
 

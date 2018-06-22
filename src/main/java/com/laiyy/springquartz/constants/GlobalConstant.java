@@ -7,6 +7,8 @@ package com.laiyy.springquartz.constants;
  */
 public class GlobalConstant {
 
+    public static final int STATUS_OF_ALL = -1;
+
     /**
      * 删除状态
      */

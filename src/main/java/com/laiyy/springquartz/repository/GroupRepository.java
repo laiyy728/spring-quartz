@@ -51,4 +51,28 @@ public interface GroupRepository extends JpaRepository<Group, Integer> {
      */
     Page<Group> findGroupByStatusAndNameLike(int status, String name, Pageable pageable);
 
+    /**
+     * 查询状态不为 status 的任务组
+     * @param status 状态
+     * @param pageable 分页参数
+     * @return 任务组列表
+     */
+    @Query(value = "select g from Group g where g.status <> :status",
+            countQuery = "select count(g) from Group g where g.status <> :status")
+    Page<Group> findGroupByStatusNotEquals(@Param("status") int status,
+                                           Pageable pageable);
+
+    /**
+     * 查询状态不为 status 且包含 name 的任务组
+     * @param status 状态
+     * @param name name
+     * @param pageable 分页参数
+     * @return 任务组
+     */
+    @Query(value = "select g from Group g where g.status <> :status and g.name like :name",
+            countQuery = "select count(g) from Group g where g.status <> :status and g.name like :name")
+    Page<Group> findGroupByStatusNotEqualsAndNameLike(@Param("status") int status,
+                                                      @Param("name") String name,
+                                                      Pageable pageable);
+
 }

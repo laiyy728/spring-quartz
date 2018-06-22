@@ -12,17 +12,22 @@ import java.util.ArrayList;
  */
 public class ResultUtils {
 
-    public static AjaxDto success(final Object obj, long count){
+    public static AjaxDto success(String uri){
+        return success(new ArrayList<>(), uri);
+    }
+
+    public static AjaxDto success(final Object obj, long count, String uri){
         AjaxDto ajaxDto = new AjaxDto();
         ajaxDto.setMsg("成功");
         ajaxDto.setCode(GlobalConstant.SUCCESS);
         ajaxDto.setData(obj);
         ajaxDto.setCount(count);
+        ajaxDto.setUri(uri);
         return ajaxDto;
     }
 
-    public static AjaxDto succee(final Object obj) {
-        return success(obj, 0);
+    public static AjaxDto success(final Object obj, String uri) {
+        return success(obj, 0, uri);
     }
 
     public static AjaxDto fail(final String msg) {

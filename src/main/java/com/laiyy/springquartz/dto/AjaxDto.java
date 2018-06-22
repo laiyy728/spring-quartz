@@ -18,6 +18,8 @@ public class AjaxDto {
 
     private String msg;
 
+    private String uri;
+
     @Override
     public String toString() {
         return "AjaxDto{" +
@@ -25,6 +27,7 @@ public class AjaxDto {
                 ", count=" + count +
                 ", data=" + data +
                 ", msg='" + msg + '\'' +
+                ", uri='" + uri + '\'' +
                 '}';
     }
 
@@ -36,13 +39,23 @@ public class AjaxDto {
         return code == ajaxDto.code &&
                 count == ajaxDto.count &&
                 Objects.equals(data, ajaxDto.data) &&
-                Objects.equals(msg, ajaxDto.msg);
+                Objects.equals(msg, ajaxDto.msg) &&
+                Objects.equals(uri, ajaxDto.uri);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(code, count, data, msg);
+        return Objects.hash(code, count, data, msg, uri);
+    }
+
+    public String getUri() {
+
+        return uri;
+    }
+
+    public void setUri(String uri) {
+        this.uri = uri;
     }
 
     public int getCode() {

@@ -3,7 +3,7 @@ layui.use(['table', 'laypage', 'jquery'], function () {
 
     table.render({
         elem: '#job_list',
-        url: '/pro/job',
+        url: '/api/job',
         method: 'get',
         where: {
             groupId: 0
@@ -83,7 +83,7 @@ function addJob() {
             type: 2,
             title: '添加定时任务',
             area: ['100%', '100%'],
-            content: '/pro/job/add'
+            content: '/view/job/add'
         });
     });
 }

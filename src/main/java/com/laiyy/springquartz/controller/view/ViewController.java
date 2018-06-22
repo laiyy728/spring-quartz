@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @description 页面管理器
  */
 @Controller
-@RequestMapping(value = "/pro")
+@RequestMapping(value = "/view")
 public class ViewController {
 
     @Autowired
@@ -28,7 +28,7 @@ public class ViewController {
 
     // ************************ 任务组页面 ************************
 
-    @GetMapping(value = "group/list")
+    @GetMapping(value = "group")
     public String grouoList(){
         return "group/list";
     }
@@ -47,7 +47,7 @@ public class ViewController {
 
     // ************************ 任务页面 ************************
 
-    @GetMapping("/job/list")
+    @GetMapping("/job")
     public String jobList(){
         return "job/list";
     }

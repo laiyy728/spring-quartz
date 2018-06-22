@@ -21,7 +21,7 @@ import javax.validation.Valid;
  * @description 任务管理接口
  */
 @Controller
-@RequestMapping(value = "/pro/job")
+@RequestMapping(value = "/api/job")
 @Validated
 public class JobController extends BaseController<JobService> {
 
