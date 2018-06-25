@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 /**
  * @author laiyy
  * @date 2018/6/7 20:49
@@ -56,5 +58,11 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
     @Query(value = "update Job set runnerType = :runnerType where jobKey = :jobKey")
     void updateJobRunnerType(@Param("runnerType") int runnerType, @Param("jobKey") String jobKey);
 
+    /**
+     * 获取对应运行状态的所有任务
+     * @param status 任务状态
+     * @return 所有任务
+     */
+    List<Job> findAllByStatus(int status);
 
 }

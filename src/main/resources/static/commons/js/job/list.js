@@ -1,5 +1,6 @@
-layui.use(['table', 'laypage', 'jquery'], function () {
-    var table = layui.table;
+layui.use(['table', 'laypage', 'jquery', 'layer'], function () {
+    var table = layui.table,
+        layer = layui.layer;
 
     table.render({
         elem: '#job_list',
@@ -45,6 +46,8 @@ layui.use(['table', 'laypage', 'jquery'], function () {
         page: true
     });
 
+
+
 });
 
 function show(id) {
@@ -57,7 +60,13 @@ function edit(id) {
 }
 
 function ttl(id) {
-    showMsg(id + "----- 剩余时间")
+    $.ajax({
+        url: '/api/job/ttl/' + id,
+        type: 'GET',
+        success: function (res) {
+            showMsg(res)
+        }
+    })
 }
 
 function now(id) {
@@ -87,5 +96,6 @@ function addJob() {
         });
     });
 }
+
 
 

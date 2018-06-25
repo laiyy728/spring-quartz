@@ -1,9 +1,11 @@
 package com.laiyy.springquartz.advice;
 
 import com.laiyy.springquartz.dto.AjaxDto;
+import com.laiyy.springquartz.exceptions.GlobalException;
 import com.laiyy.springquartz.exceptions.NullValueException;
 import com.laiyy.springquartz.util.ResultUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.SchedulerException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -51,5 +53,36 @@ public class ExceptionAdvice {
         logger.debug(">>>>>>>>>>>>>>>>>>{} <<<<<<<<<<<<<<<<", message);
         return ResultUtils.fail(message);
     }
+
+    /**
+     * 全局异常处理
+     * @param e 异常信息
+     * @return 处理结果
+     */
+    @ExceptionHandler(GlobalException.class)
+    @ResponseBody
+    public AjaxDto globalException(GlobalException e) {
+        String message = e.getLocalizedMessage();
+        return ResultUtils.fail(message);
+    }
+
+    @ExceptionHandler(SchedulerException.class)
+    @ResponseBody
+    public AjaxDto schedulerException(SchedulerException e) {
+        String message = e.getLocalizedMessage();
+        logger.debug(">>>>>>>>>>>>>>>>>>{} <<<<<<<<<<<<<<<<", message);
+        return ResultUtils.fail(message);
+    }
+
+
+    @ExceptionHandler(ClassNotFoundException.class)
+    @ResponseBody
+    public AjaxDto classNotFoundException(ClassNotFoundException e){
+        String message = e.getLocalizedMessage();
+        logger.debug(">>>>>>>>>>>>>>>>>>{} <<<<<<<<<<<<<<<<", message);
+        return ResultUtils.fail(message);
+    }
+
+
 
 }

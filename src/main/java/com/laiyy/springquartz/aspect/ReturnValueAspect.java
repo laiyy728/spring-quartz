@@ -1,6 +1,7 @@
 package com.laiyy.springquartz.aspect;
 
 import com.alibaba.fastjson.JSON;
+import com.laiyy.springquartz.dto.AjaxDto;
 import com.laiyy.springquartz.util.ResultUtils;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
@@ -51,7 +52,9 @@ public class ReturnValueAspect {
             List data = page.getContent();
             long count = page.getTotalElements();
             json = JSON.toJSONString(ResultUtils.success(data, count, url));
-        } else {
+        } else if (value instanceof AjaxDto){
+            json = JSON.toJSONString(value);
+        }else {
             json = JSON.toJSONString(ResultUtils.success(value, url));
         }
         write(json);

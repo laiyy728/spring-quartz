@@ -1,6 +1,7 @@
 package com.laiyy.springquartz.controller.view;
 
 import com.laiyy.springquartz.constants.GlobalConstant;
+import com.laiyy.springquartz.constants.JobClassName;
 import com.laiyy.springquartz.model.Group;
 import com.laiyy.springquartz.model.Job;
 import com.laiyy.springquartz.service.GroupService;
@@ -60,6 +61,9 @@ public class ViewController {
         // 任务组
         List<Group> groups = groupService.findAllByStatusOrderByCreateDateDesc(GlobalConstant.NORMAL);
         model.addAttribute("groups", groups);
+
+        // 运行任务类
+        model.addAttribute("classes", JobClassName.JOB_CLASS_MAPS);
         return "job/add-job";
     }
 

@@ -5,6 +5,8 @@ import com.laiyy.springquartz.model.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * @author laiyy
  * @date 2018/6/8 10:57
@@ -15,8 +17,9 @@ public interface JobService extends BaseService<Job, Integer>{
     /**
      * 添加任务
      * @param job 任务信息
+     * @return 添加的任务信息
      */
-    void addJob(Job job);
+    Job addJob(Job job);
 
     /**
      * 根据 任务 key 获取任务信息
@@ -57,5 +60,12 @@ public interface JobService extends BaseService<Job, Integer>{
      * @param jobKey 任务 key
      */
     void updateJobRunnerType(int runnerType, String jobKey);
+
+    /**
+     * 获对应状态的所有任务
+     * @param status 状态
+     * @return 所有任务
+     */
+    List<Job> findAllJobByStatus(int status);
 
 }

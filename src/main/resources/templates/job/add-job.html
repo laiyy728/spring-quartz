@@ -8,7 +8,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">任务名称：</label>
             <div class="layui-input-block">
-                <input type="text" name="title" lay-verify="title" autocomplete="off" placeholder="请输入任务名称"
+                <input type="text" name="jobKey" lay-verify="required" autocomplete="off" placeholder="请输入任务名称"
                        class="layui-input">
             </div>
         </div>
@@ -16,7 +16,7 @@
         <div class="layui-form-item">
             <label class="layui-form-label">任务组：</label>
             <div class="layui-input-block">
-                <select name="groupId">
+                <select name="groupId" lay-verify="required">
                     <option value="">请选择任务组</option>
                     @ for (group in groups) {
                     <option value="${group.id}">${group.name}</option>
@@ -28,9 +28,23 @@
         <div class="layui-form-item">
             <label class="layui-form-label">运行类：</label>
             <div class="layui-input-block">
-                <select name="runnerClassName">
+                <select name="runnerClassName" lay-verify="required">
                     <option value="">请选择任务运行类</option>
+                    @ for( entry in classes) {
+                    @   var key = entry.key;
+                    @   var value = entry.value;
+                    <option value="${value!}">${key!}</option>
+                    @ }
                 </select>
+            </div>
+        </div>
+
+        <div class="layui-form-item">
+            <label class="layui-form-label">单选框</label>
+            <div class="layui-input-block">
+                <input type="radio" name="time" value="-1" title="永远运行" lay-filter="time" checked>
+                <input type="radio" name="time" value="0" title="运行一次" lay-filter="time">
+                <input type="radio" name="time" value="1" title="固定次数" lay-filter="time">
             </div>
         </div>
 
@@ -38,44 +52,35 @@
             <div class="layui-inline">
                 <label class="layui-form-label">开始时间：</label>
                 <div class="layui-input-inline">
-                    <input type="text" name="startDateStr" id="startDate" lay-verify="time"
+                    <input type="text" name="time" id="startDate" lay-verify="time|required"
                            placeholder="yyyy-MM-dd HH:mm:ss" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
         </div>
 
-        <div class="layui-form-item">
-            <label class="layui-form-label">单选框</label>
-            <div class="layui-input-block">
-                <input type="radio" name="time" value="-1" title="永远运行">
-                <input type="radio" name="time" value="0" title="运行一次">
-                <input type="radio" name="time" value="2" title="固定次数">
-            </div>
-        </div>
-
-        <div class="layui-form-item" style="display: none" id="time">
+        <div class="layui-form-item" style="display: none" id="times">
             <label class="layui-form-label">固定运行次数：</label>
             <div class="layui-input-block">
-                <input type="number" name="times" lay-verify="title" autocomplete="off" placeholder="请输入任务运行次数"
-                       class="layui-input">
+                <input type="number" name="times" lay-verify="title" autocomplete="off" placeholder="请输入任务运行次数" value="-1"
+                       class="layui-input times">
             </div>
         </div>
 
-        <div class="layui-form-item">
+        <div class="layui-form-item" id="cycle">
             <label class="layui-form-label">运行周期：</label>
             <div class="layui-input-block">
-                <input type="number" name="year" autocomplete="off" lay-verify="year"
+                <input type="number" name="year" autocomplete="off" lay-verify="year" value="0"
                        class="layui-input time-input"> &nbsp;<span class="time-span">年</span>
-                <input type="number" name="month" autocomplete="off" lay-verify="month"
+                <input type="number" name="month" autocomplete="off" lay-verify="month" value="0"
                        class="layui-input time-input"> &nbsp;<span class="time-span">月</span>
-                <input type="number" name="day" autocomplete="off" lay-verify="day"
+                <input type="number" name="day" autocomplete="off" lay-verify="day" value="0"
                        class="layui-input time-input"> &nbsp;<span class="time-span">日</span>
-                <input type="number" name="hour" autocomplete="off" lay-verify="hour"
+                <input type="number" name="hour" autocomplete="off" lay-verify="hour" value="0"
                        class="layui-input time-input"> &nbsp;<span class="time-span">时</span>
-                <input type="number" name="minute" autocomplete="off" lay-verify="minute"
+                <input type="number" name="minute" autocomplete="off" lay-verify="minute" value="0"
                        class="layui-input time-input"> &nbsp;<span class="time-span">分</span>
-                <input type="number" name="second" autocomplete="off" lay-verify="second"
+                <input type="number" name="second" autocomplete="off" lay-verify="second" value="0"
                        class="layui-input time-input"> &nbsp;<span class="time-span">秒</span>
             </div>
         </div>

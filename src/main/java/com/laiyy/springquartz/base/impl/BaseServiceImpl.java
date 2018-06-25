@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author laiyy
@@ -20,7 +21,7 @@ public class BaseServiceImpl<T, ID extends Number, R extends JpaRepository<T, ID
 
     @Override
     public void delete(T t) {
-        logger.debug(">>>>>>>>>>>>>>>> 正在删除实体：{} <<<<<<<<<<<<<<<<<" ,t);
+        logger.debug(">>>>>>>>>>>>>>>> 正在删除实体：{} <<<<<<<<<<<<<<<<<", t);
         repository.delete(t);
     }
 
@@ -33,7 +34,12 @@ public class BaseServiceImpl<T, ID extends Number, R extends JpaRepository<T, ID
     @Override
     public T get(ID id) {
         logger.debug(">>>>>>>>>>>>>>>>>>>>> 正在获取实体 id：{} <<<<<<<<<<<<<<<<<<<<<", id);
-        return repository.getOne(id);
+        Optional<T> optional = repository.findById(id);
+        T t = null;
+        if (optional.isPresent()) {
+            t = optional.get();
+        }
+        return t;
     }
 
     @Override

@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotBlank;
+import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
 
@@ -18,7 +19,9 @@ import java.util.Objects;
  */
 @Entity
 @Table(name = "t_job")
-public class Job {
+public class Job implements Serializable {
+
+    private static final long serialVersionUID = 3276342691112652104L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -42,12 +45,6 @@ public class Job {
      */
     @Column(name = "group_id", columnDefinition = "INT DEFAULT 0")
     private int groupId;
-
-    /**
-     * 任务所属任务组名称
-     */
-    @Transient
-    private String groupName;
 
     /**
      * 任务创建时间
@@ -103,6 +100,18 @@ public class Job {
     @Column(columnDefinition = "TINYINT DEFAULT 0")
     private int second;
 
+    @Column(columnDefinition = "TINYINT DEFAULT 0")
+    private int status;
+
+    /**
+     * 任务所属任务组名称
+     */
+    @Transient
+    private String groupName;
+
+    @Transient
+    private String time;
+
     @Override
     public String toString() {
         return "Job{" +
@@ -110,7 +119,6 @@ public class Job {
                 ", jobKey='" + jobKey + '\'' +
                 ", runnerClassName='" + runnerClassName + '\'' +
                 ", groupId=" + groupId +
-                ", groupName='" + groupName + '\'' +
                 ", createDate=" + createDate +
                 ", startDate=" + startDate +
                 ", times=" + times +
@@ -122,6 +130,9 @@ public class Job {
                 ", hour=" + hour +
                 ", minute=" + minute +
                 ", second=" + second +
+                ", status=" + status +
+                ", groupName='" + groupName + '\'' +
+                ", time='" + time + '\'' +
                 '}';
     }
 
@@ -140,18 +151,38 @@ public class Job {
                 hour == job.hour &&
                 minute == job.minute &&
                 second == job.second &&
+                status == job.status &&
                 Objects.equals(jobKey, job.jobKey) &&
                 Objects.equals(runnerClassName, job.runnerClassName) &&
-                Objects.equals(groupName, job.groupName) &&
                 Objects.equals(createDate, job.createDate) &&
                 Objects.equals(startDate, job.startDate) &&
-                Objects.equals(cron, job.cron);
+                Objects.equals(cron, job.cron) &&
+                Objects.equals(groupName, job.groupName) &&
+                Objects.equals(time, job.time);
     }
 
     @Override
     public int hashCode() {
 
-        return Objects.hash(id, jobKey, runnerClassName, groupId, groupName, createDate, startDate, times, cron, runnerType, year, month, day, hour, minute, second);
+        return Objects.hash(id, jobKey, runnerClassName, groupId, createDate, startDate, times, cron, runnerType, year, month, day, hour, minute, second, status, groupName, time);
+    }
+
+    public String getTime() {
+
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public int getStatus() {
+
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getYear() {
