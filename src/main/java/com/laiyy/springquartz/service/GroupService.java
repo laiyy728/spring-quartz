@@ -15,6 +15,7 @@ public interface GroupService extends BaseService<Group, Integer> {
 
     void updateGroupStatus(int status, int id);
 
+
     /**
      * 根据任务组状态获取任务所有任务组
      * @param status 任务组状态
