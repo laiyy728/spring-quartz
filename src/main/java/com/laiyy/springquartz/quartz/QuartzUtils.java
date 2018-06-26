@@ -16,6 +16,7 @@ import org.quartz.SchedulerException;
 import org.quartz.SimpleScheduleBuilder;
 import org.quartz.Trigger;
 import org.quartz.TriggerBuilder;
+import org.quartz.TriggerKey;
 import org.quartz.UnableToInterruptJobException;
 import org.quartz.impl.StdSchedulerFactory;
 import org.slf4j.Logger;
@@ -38,11 +39,9 @@ public class QuartzUtils {
 
     private static Trigger trigger;
 
-    private static Scheduler scheduler;
+    private static volatile Scheduler scheduler;
 
     private static Map<String, JobDetail> jobMaps = Maps.newConcurrentMap();
-    private static Map<String, Trigger> triggerMap = Maps.newConcurrentMap();
-
 
     static {
         // 初始化任务工厂
@@ -68,7 +67,6 @@ public class QuartzUtils {
         scheduler.scheduleJob(jobDetail, trigger);
 
         jobMaps.put(job.getJobKey(), jobDetail);
-        triggerMap.put(job.getJobKey(), trigger);
         logger.debug(">>>>>>>>>>>>>>> 初始化定时任，任务key：{}，任务组：{} <<<<<<<<<<<<<<<<<<", job.getJobKey(), group.getName());
     }
 
@@ -109,11 +107,16 @@ public class QuartzUtils {
 
     /**
      * 下一次运行时间
-     * @param jobKey 任务key
+     *
      * @return 下一次运行时间
      */
-    public static long ttl(String jobKey) {
-        trigger = triggerMap.get(jobKey);
+    public static long ttl(int jobId, String groupName) throws SchedulerException {
+        trigger = scheduler.getTrigger(TriggerKey.triggerKey("trigger" + jobId, groupName));
+
+        if (trigger == null){
+            // 任务已结束
+            return -1;
+        }
         return trigger.getNextFireTime().getTime();
     }
 
@@ -141,8 +144,6 @@ public class QuartzUtils {
         JobKey jobKey = jobDetail.getKey();
         scheduler.deleteJob(jobKey);
         logger.debug(">>>>>>>>>>>>>>>>>>>>>>>> 删除、取消定时任务成功，任务key：{} <<<<<<<<<<<<<<<<<<<", key);
-        jobMaps.remove(key);
-        triggerMap.remove(key);
     }
 
 
@@ -178,7 +179,7 @@ public class QuartzUtils {
      * 没有指定 cron，运行一次
      *
      * @param groupName 组名称
-     * @param jobId 任务id
+     * @param jobId     任务id
      */
     private static void triggerOnceTime(int jobId, String groupName) {
         trigger = TriggerBuilder.newTrigger().withIdentity("trigger" + jobId, groupName).startAt(DateBuilder.futureDate(5, DateBuilder.IntervalUnit.SECOND)).build();

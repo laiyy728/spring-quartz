@@ -47,7 +47,6 @@ layui.use(['table', 'laypage', 'jquery', 'layer'], function () {
     });
 
 
-
 });
 
 function show(id) {
@@ -64,7 +63,11 @@ function ttl(id) {
         url: '/api/job/ttl/' + id,
         type: 'GET',
         success: function (res) {
-            showMsg(res)
+            if (res.code === 200) {
+                showMsg(res.data)
+            } else {
+                showMsg(res.msg)
+            }
         }
     })
 }

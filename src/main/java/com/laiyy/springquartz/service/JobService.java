@@ -1,6 +1,7 @@
 package com.laiyy.springquartz.service;
 
 import com.laiyy.springquartz.base.BaseService;
+import com.laiyy.springquartz.model.Group;
 import com.laiyy.springquartz.model.Job;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -27,6 +28,16 @@ public interface JobService extends BaseService<Job, Integer>{
      * @return 任务信息
      */
     Job findJobByJobKey(String jobKey);
+
+
+    /**
+     * 获取分页任务
+     * @param page 当前页码
+     * @param limit 分页参数
+     * @return 分页任务
+     */
+    Page<Job> findJobByPage(int page, int limit);
+
 
     /**
      * 根据任务组，获取任务组所有任务，带分页

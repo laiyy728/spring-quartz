@@ -46,21 +46,23 @@ public class JobController extends BaseController<JobService> {
 
     /**
      * 任务列表
-     * @param page 当前页
+     *
+     * @param page  当前页
      * @param limit 每页显示条数
      * @return 任务列表
      */
     @GetMapping
     @ResponseBody
     public Page<Job> list(int page, int limit) {
-        return service.findJobByGroupId(1, page, limit);
+        return service.findJobByPage(page, limit);
     }
 
     /**
      * 任务添加
+     *
      * @param job 添加的任务
      * @return 添加后的任务
-     * @throws SchedulerException 可能出现的异常
+     * @throws SchedulerException     可能出现的异常
      * @throws ClassNotFoundException 可能出现的异常
      */
     @PostMapping
@@ -79,7 +81,7 @@ public class JobController extends BaseController<JobService> {
         } catch (ParseException e) {
             throw new GlobalException("时间格式为：yyyy-MM-dd HH:mm:ss");
         }
-        job= service.addJob(job);
+        job = service.addJob(job);
         Group group = groupService.get(job.getGroupId());
         QuartzUtils.addJob(job, group);
         // TODO: 2018/6/25 添加到定时任务重
@@ -88,12 +90,21 @@ public class JobController extends BaseController<JobService> {
 
     @GetMapping(value = "ttl/{id}")
     @ResponseBody
-    public String ttl(@PathVariable int id){
+    public String ttl(@PathVariable int id) {
         Job job = service.get(id);
-        long ttl = QuartzUtils.ttl(job.getJobKey());
-        return TimeUtils.ttl(ttl);
+        Group group = groupService.get(job.getGroupId());
+        long ttl;
+        try {
+            ttl = QuartzUtils.ttl(id, group.getName());
+        } catch (SchedulerException e) {
+            return "查询出错";
+        }
+        if (ttl == -1) {
+            // 任务已经结束
+            return "任务已结束";
+        }
+        return "距下次执行还有：" + TimeUtils.ttl(ttl);
     }
-
 
 
 }

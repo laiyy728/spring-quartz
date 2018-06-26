@@ -30,7 +30,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
      * @param pageable 分页参数
      * @return 对应任务组的任务列表
      */
-    Page<Job> findJobByGroupId(int groupId, Pageable pageable);
+    Page<Job> findJobByGroupIdAndStatus(int groupId, int status, Pageable pageable);
 
     /**
      * 根据运行状态，获取对应运行状态的所有任务，带分页
@@ -38,7 +38,7 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
      * @param pageable 分页信息
      * @return 对应运行状态的任务列表
      */
-    Page<Job> findJobByRunnerType(int runnerType, Pageable pageable);
+    Page<Job> findJobByRunnerTypeAndStatus(int runnerType,int status, Pageable pageable);
 
     /**
      * 根据任务组、运行状态获取任务信息，带分页
@@ -47,7 +47,14 @@ public interface JobRepository extends JpaRepository<Job, Integer> {
      * @param pageable 分页信息
      * @return 对应任务列表
      */
-    Page<Job> findJobByGroupIdAndRunnerType(int groupId, int runnerType, Pageable pageable);
+    Page<Job> findJobByGroupIdAndRunnerTypeAndStatus(int groupId, int runnerType,int status, Pageable pageable);
+
+    /**
+     * 分页获取任务信息
+     * @param pageable 分页参数
+     * @return 分页任务信息
+     */
+    Page<Job> findJobByStatus(int status,Pageable pageable);
 
     /**
      * 修改任务类型
