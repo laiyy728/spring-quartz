@@ -1,103 +1,69 @@
 package com.laiyy.springquartz.util;
 
-import org.apache.commons.lang3.Validate;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeansException;
-import org.springframework.beans.factory.DisposableBean;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.context.annotation.Lazy;
-import org.springframework.stereotype.Service;
-
-import java.io.IOException;
 
 /**
- * @author wh
+ * @author laiyy
+ * Date：2018年6月26日15:57:45
  */
-@Service
-@Lazy(false)
-public class SpringUtil implements ApplicationContextAware,
-        DisposableBean {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SpringUtil.class);
-	
-	
-	private static ApplicationContext applicationContext;
-	
-	public static ApplicationContext getApplicationContext(){
-		assertContetInject();
-		return applicationContext;
-	}
-	
+public class SpringUtil {
 
-	@Override
-	public void destroy() throws Exception {
-		SpringUtil.clearHodler();
-	}
+    private static ApplicationContext applicationContext = null;
 
-	@Override
-	public void setApplicationContext(ApplicationContext arg0)
-			throws BeansException {
-		
-		if(SpringUtil.applicationContext!=null){
-			logger.info("SpringHoderContext里面的ApplicationContext被覆盖，原有的applicationContext值为："
-					+ SpringUtil.applicationContext);
-		}
-		SpringUtil.applicationContext = arg0;
-	}
-	
-	
-	
-	private static void clearHodler(){
-		if(logger.isDebugEnabled()){
-			logger.info("清除SpringContextHolder中的ApplicationContext:"+applicationContext);
-		}
-		applicationContext = null;
-	}
-	
-	/**
-	 * 检查 applicationContext不为空
-	 */
-	private static void assertContetInject(){
-		Validate.validState(applicationContext != null,
-				"applicaitonContext属性未注入, 请在applicationContext.xml中定义SpringContextHolder.");
-	}
-	
-	/**
-	 * 获取根目录
-	 * @return
-	 */
-	public  static String getRootPath(){
-		String path="";
-		try {
-			path = getApplicationContext().getResource("").getFile().getAbsolutePath();
-		} catch (IOException e) {
-			logger.warn("获取系统根目录失败！");
-		}
-		return path;
-	}
-	/**
-	 * 
-	 * @param ml 目录名
-	 * @return
-	 */
-	public static String getPath(String ml){
-		String mulu ="/"+ml;
-		String path="";
-		try {
-			path = getApplicationContext().getResource(mulu).getFile().getAbsolutePath();
-		} catch (IOException e) {
-			logger.warn("获取目录失败！");
-		}
-		return path;
-		
-	}
-	
-	@SuppressWarnings("unchecked")
-	public static <T> T getBean(String name){
-		assertContetInject();
-		return (T) applicationContext.getBean(name);
-	}
+    /**
+     * 非@import显式注入，@Component是必须的，且该类必须与main同包或子包
+     * 若非同包或子包，则需手动import 注入，有没有@Component都一样
+     * 可复制到Test同包测试
+     *
+     * @param applicationContext 启动后的 application
+     * @throws BeansException 可能出现的异常
+     */
+    public static void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
+        if (SpringUtil.applicationContext == null) {
+            SpringUtil.applicationContext = applicationContext;
+        }
+    }
 
+    /**
+     * 获取applicationContext
+     *
+     * @return applicationContext
+     */
+    public static ApplicationContext getApplicationContext() {
+        return applicationContext;
+    }
+
+    /**
+     * 通过name获取 Bean.
+     *
+     * @param name name
+     * @return bean
+     */
+    public static Object getBean(String name) {
+        return getApplicationContext().getBean(name);
+
+    }
+
+    /**
+     * 通过class获取Bean.
+     *
+     * @param clazz class
+     * @return bean
+     */
+    public static <T> T getBean(Class<T> clazz) {
+        return getApplicationContext().getBean(clazz);
+    }
+
+    /**
+     * 通过name,以及Clazz返回指定的Bean
+     *
+     * @param name  name
+     * @param clazz class
+     * @param <T>   泛型
+     * @return bean
+     */
+    public static <T> T getBean(String name, Class<T> clazz) {
+        return getApplicationContext().getBean(name, clazz);
+    }
 }

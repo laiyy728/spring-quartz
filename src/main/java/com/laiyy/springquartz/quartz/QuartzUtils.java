@@ -43,6 +43,7 @@ public class QuartzUtils {
 
     private static Map<String, JobDetail> jobMaps = Maps.newConcurrentMap();
 
+
     static {
         // 初始化任务工厂
         StdSchedulerFactory sf = new StdSchedulerFactory();
@@ -126,10 +127,12 @@ public class QuartzUtils {
      * @param key 任务key
      * @throws UnableToInterruptJobException 可能出现异常
      */
-    public static void interrupt(String key) throws UnableToInterruptJobException {
+    public static void resume(String key) throws SchedulerException {
         jobDetail = jobMaps.get(key);
         JobKey jobKey = jobDetail.getKey();
-        scheduler.interrupt(jobKey);
+
+        scheduler.resumeJob(jobKey);
+
         logger.debug(">>>>>>>>>>>>>>>>>> 恢复定时任务成功，任务key：{} <<<<<<<<<<<<<<<<", key);
     }
 

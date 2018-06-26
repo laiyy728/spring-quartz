@@ -1,17 +1,27 @@
 package com.laiyy.springquartz;
 
+import com.laiyy.springquartz.constants.GlobalConstant;
+import com.laiyy.springquartz.model.Group;
+import com.laiyy.springquartz.model.Job;
+import com.laiyy.springquartz.quartz.QuartzUtils;
+import com.laiyy.springquartz.service.GroupService;
+import com.laiyy.springquartz.service.JobService;
+import com.laiyy.springquartz.util.SpringUtil;
 import org.beetl.core.resource.WebAppResourceLoader;
 import org.beetl.ext.spring.BeetlGroupUtilConfiguration;
 import org.beetl.ext.spring.BeetlSpringViewResolver;
+import org.quartz.SchedulerException;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.core.io.support.ResourcePatternUtils;
 
 import java.io.IOException;
+import java.util.List;
 
 /**
  * @author laiyy
@@ -20,7 +30,29 @@ import java.io.IOException;
 public class SpringQuartzApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(SpringQuartzApplication.class, args);
+        ApplicationContext applicationContext = SpringApplication.run(SpringQuartzApplication.class, args);
+        SpringUtil.setApplicationContext(applicationContext);
+        // 启动完成后，初始化任务
+        initScheduler();
+    }
+
+    private static void initScheduler() {
+        JobService jobService = SpringUtil.getBean(JobService.class);
+        List<Job> jobList = jobService.findAllJobByStatus(GlobalConstant.NORMAL);
+        GroupService groupService = SpringUtil.getBean(GroupService.class);
+        for (Job job : jobList) {
+            Group group = groupService.get(job.getGroupId());
+            try {
+                QuartzUtils.initJobDetail(job, group);
+            } catch (ClassNotFoundException | SchedulerException e) {
+                e.printStackTrace();
+            }
+        }
+        try {
+            QuartzUtils.start();
+        } catch (SchedulerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Bean(initMethod = "init", name = "beetlConfig")

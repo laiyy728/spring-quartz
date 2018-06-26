@@ -2,32 +2,27 @@ package com.laiyy.springquartz.quartz.job;
 
 import com.laiyy.springquartz.enums.JobRunnerType;
 import com.laiyy.springquartz.service.JobService;
+import com.laiyy.springquartz.util.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
 import org.quartz.JobExecutionException;
 import org.quartz.JobKey;
-import org.quartz.Scheduler;
 import org.quartz.Trigger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContextAware;
-import org.springframework.stereotype.Component;
 
 /**
  * @author laiyy
  * @date 2018/6/25 10:07
  * @description
  */
-@Component
 public class NumberPlusJob implements Job {
 
     private static final Logger logger = LoggerFactory.getLogger(NumberPlusJob.class);
 
-    @Autowired
-    private JobService jobService;
+    private static JobService jobService = SpringUtil.getBean(JobService.class);
 
     private static long number = 1L;
 

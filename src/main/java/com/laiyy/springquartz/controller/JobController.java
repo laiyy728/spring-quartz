@@ -1,7 +1,6 @@
 package com.laiyy.springquartz.controller;
 
 import com.laiyy.springquartz.base.BaseController;
-import com.laiyy.springquartz.dto.AjaxDto;
 import com.laiyy.springquartz.enums.JobRunnerType;
 import com.laiyy.springquartz.exceptions.GlobalException;
 import com.laiyy.springquartz.model.Group;
@@ -9,9 +8,7 @@ import com.laiyy.springquartz.model.Job;
 import com.laiyy.springquartz.quartz.QuartzUtils;
 import com.laiyy.springquartz.service.GroupService;
 import com.laiyy.springquartz.service.JobService;
-import com.laiyy.springquartz.util.ResultUtils;
 import com.laiyy.springquartz.util.TimeUtils;
-import com.sun.javafx.geom.Quat4f;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateUtils;
 import org.quartz.SchedulerException;
@@ -29,7 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import javax.validation.Valid;
 import java.text.ParseException;
 import java.util.Date;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author laiyy
@@ -104,6 +100,32 @@ public class JobController extends BaseController<JobService> {
             return "任务已结束";
         }
         return "距下次执行还有：" + TimeUtils.ttl(ttl);
+    }
+
+    @PutMapping(value = "pause/{id}")
+    @ResponseBody
+    public void pause(@PathVariable int id){
+        Job job = service.get(id);
+        service.updateJobRunnerType(JobRunnerType.PAUSE.type(),job.getJobKey());
+        try {
+            QuartzUtils.pause(job.getJobKey());
+        } catch (SchedulerException e) {
+            throw new GlobalException(e.getLocalizedMessage());
+
+        }
+    }
+
+    @PutMapping(value = "/resume/{id}")
+    @ResponseBody
+    public void resume(@PathVariable int id){
+        Job job = service.get(id);
+        service.updateJobRunnerType(JobRunnerType.RUNNING.type(), job.getJobKey());
+        try {
+            QuartzUtils.resume(job.getJobKey());
+        } catch (SchedulerException e) {
+            throw new GlobalException(e.getLocalizedMessage());
+
+        }
     }
 
 

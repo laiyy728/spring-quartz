@@ -26,3 +26,43 @@ function now() {
     return dayjs().format('YYYY-MM-DD HH:mm:ss');
 }
 
+function tableRender(elem, url, method, params, cols, curr) {
+    layui.use(['table'], function () {
+        var table = layui.table;
+        table.render({
+            elem: '#'+ elem,
+            url: url,
+            method: method,
+            where: params, // 接口的其他参数
+            response: {
+                statusCode: 200
+            },
+            cols: cols,
+            loading: true,
+            page: {
+                curr : curr
+            },
+            done:function (result, page, size) {
+                curr = page;
+            }
+        })
+    });
+}
+
+function tableReload(elem, url, method, params, curr) {
+    layui.use('table', function () {
+        var table = layui.table;
+        table.reload(elem, {
+            url : url,
+            method: method,
+            where : params,
+            response: {
+                statusCode: 200
+            },
+            loading: true,
+            page: {
+                curr : curr
+            }
+        })
+    });
+}
