@@ -13,6 +13,11 @@ import java.util.List;
  */
 public interface GroupService extends BaseService<Group, Integer> {
 
+    /**
+     * 修改任务组状态
+     * @param status 任务组状态
+     * @param id 任务组id
+     */
     void updateGroupStatus(int status, int id);
 
 

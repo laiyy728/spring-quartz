@@ -137,16 +137,27 @@ public class QuartzUtils {
     }
 
     /**
-     * 取消、删除任务
+     * 取消、中断任务
+     * @param key 任务key
+     */
+    public static void cancel(String key) throws UnableToInterruptJobException {
+        jobDetail = jobMaps.get(key);
+        JobKey jobKey = jobDetail.getKey();
+        scheduler.interrupt(jobKey);
+        logger.debug(">>>>>>>>>>>>>>>>>>>>>>>> 取消定时任务成功，任务key：{} <<<<<<<<<<<<<<<<<<<", key);
+    }
+
+    /**
+     * 删除任务
      *
      * @param key 任务key
      * @throws SchedulerException 可能出现异常
      */
-    public static void cancel(String key) throws SchedulerException {
+    public static void delete(String key) throws SchedulerException {
         jobDetail = jobMaps.get(key);
         JobKey jobKey = jobDetail.getKey();
         scheduler.deleteJob(jobKey);
-        logger.debug(">>>>>>>>>>>>>>>>>>>>>>>> 删除、取消定时任务成功，任务key：{} <<<<<<<<<<<<<<<<<<<", key);
+        logger.debug(">>>>>>>>>>>>>>>>>>>>>>>> 删除定时任务成功，任务key：{} <<<<<<<<<<<<<<<<<<<", key);
     }
 
 

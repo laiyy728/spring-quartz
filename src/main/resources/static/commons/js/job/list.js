@@ -86,7 +86,11 @@ function pause(id) {
         url :'/api/job/pause/'+ id,
         type : 'PUT',
         success: function (res) {
-            reload(res);
+            if (res.code === 200) {
+                reload(res, res.data);
+            } else {
+                showMsg(res.msg)
+            }
         }
     })
 }
@@ -96,13 +100,27 @@ function resume(id) {
         url :'/api/job/resume/'+id,
         type:'PUT',
         success: function (res) {
-            reload(res);
+            if (res.code === 200) {
+                reload(res, res.data);
+            } else {
+                showMsg(res.msg)
+            }
         }
     })
 }
 
 function cancel(id) {
-    showMsg(id + "----------取消")
+    $.ajax({
+        url:'/api/job/cancel/'+id,
+        type:'PUT',
+        success:function (res) {
+            if (res.code === 200) {
+                reload(res, res.data);
+            } else {
+                showMsg(res.msg)
+            }
+        }
+    })
 }
 
 function del(id) {
