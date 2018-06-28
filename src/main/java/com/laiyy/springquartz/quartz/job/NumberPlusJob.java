@@ -4,6 +4,7 @@ import com.laiyy.springquartz.enums.JobRunnerType;
 import com.laiyy.springquartz.service.JobService;
 import com.laiyy.springquartz.util.SpringUtil;
 import org.apache.commons.lang3.StringUtils;
+import org.quartz.DisallowConcurrentExecution;
 import org.quartz.Job;
 import org.quartz.JobDetail;
 import org.quartz.JobExecutionContext;
@@ -17,6 +18,17 @@ import org.slf4j.LoggerFactory;
  * @author laiyy
  * @date 2018/6/25 10:07
  * @description
+ * 注解：
+ *  1、@DisallowConcurrentExecution 表示不会并发执行同一个 job 实例。
+ *     即：如果有多个 JobDetail 使用了同一个 job 实例，则不会同时执行
+ *     该注解应该放在 job 类上
+ *  2、@PersistJobDataAfterExecution 执行 job 类的 execute 方法后，且没有发生异常，则
+ *      更新 JobDateMap 中的数据，使得该 jobDetail 在下一次执行的时候，jobDateMap 中的数据最新。
+ *      该注解放在 job 类上，但是其左右是针对 job 实例的，而不是 job 类。由 jobDetail 来集成该
+ *      注解，是因为 jobDetail 的内容经常会影响其行为状态
+ *
+ *  注意：如果使用了 @PersistJobDataAfterExecution，则建议同时使用 @DisallowConcurrentExecution
+ *  因为：当同一个 jobDetail 的两个实例被并发执行，由于竞争关系，jobDataMap 中存储的数据很可能是不确定的
  */
 public class NumberPlusJob implements Job {
 
